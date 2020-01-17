@@ -12,7 +12,7 @@ export default () => {
     }
     return (
         <>
-            <Link href='/a?id=1' as="/a/1"><Button>Welcome to next.js!</Button></Link>
+            <Link href={{pathname:'/a',query:{id:1}}} as="/a/1"><Button>Welcome to next.js!</Button></Link>
             <Button onClick={gotoTest}>Test B</Button>
         </>
     )

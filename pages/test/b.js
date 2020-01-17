@@ -1,4 +1,6 @@
 import {Button} from 'antd'
-export default ()=>(
-    <Button>B</Button>
+import { withRouter } from 'next/router'
+const B=({router})=>(
+<Button>{router.query.id}</Button>
 )
+export default withRouter(B);
