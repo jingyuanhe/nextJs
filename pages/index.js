@@ -1,19 +1,26 @@
 import {Button} from 'antd'
 import Link from 'next/link'
 import Router from 'next/router'
+// const events=[
+//     'routeChangeStart',
+//     'routeChangeComplete',
+//     'routeChangeError',
+//     'beforeHistoryChange',
+//     'hashChangeStart',
+//     'hashChangeComplete'
+// ]
+// function makeEvent(type){
+//     return (...args)=>{
+//         console.log(type,...args)
+//     }
+// }
+// events.forEach(event=>{
+//     Router.event.on(event,makeEvent(event))
+// })
 export default () => {
-    function gotoTest(){
-        Router.push({
-            pathname:'/test/b',
-            query:{
-                id:2
-            }
-        },'/test/b/2')
-    }
     return (
         <>
-            <Link href={{pathname:'/a',query:{id:1}}} as="/a/1"><Button>Welcome to next.js!</Button></Link>
-            <Button onClick={gotoTest}>Test B</Button>
+            <span>index</span>
         </>
     )
 }

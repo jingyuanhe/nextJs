@@ -9,13 +9,6 @@ app.prepare().then(()=>{
     const router=new Router();
     router.get('/a/:id',async (ctx)=>{
         const id=ctx.params.id;
-        console.log(handle);
-        // await handle(ctx.req,ctx.res,{
-        //     pathname:`/a`,
-        //     query:{
-        //         id:2
-        //     }
-        // })
         app.render(ctx.req,ctx.res,'/a',{id:1})
         ctx.respond=false
     })
