@@ -28,7 +28,7 @@ function userReducer(state=userInitialState,action){
             return state
     }
 }
-function add(num){
+export function add(num){
     return{
         type:ADD,
         num
@@ -45,9 +45,11 @@ const allReducers=combineReducers({
     counter:counterReducer,
     user:userReducer
 })
-const store=createStore(allReducers,{
-    counter:counterInitialState,
-    user:userInitialState
-},composeWithDevTools(applyMiddleware(thunkMiddleware)));
-console.log(store)
-export default store;
+
+export default function initializeStore(state){
+    const store=createStore(allReducers,Object.assign({},{
+        counter:counterInitialState,
+        user:userInitialState
+    },state),composeWithDevTools(applyMiddleware(thunkMiddleware)));
+    return store;
+};
