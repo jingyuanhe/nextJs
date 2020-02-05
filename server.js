@@ -24,18 +24,9 @@ app.prepare().then(()=>{
         app.render(ctx.req,ctx.res,'/a',{id:1})
         ctx.respond=false
     });
-    router.get('/api/user/info',async ctx=>{
-        const user=ctx.session.userInfo;
-        if(!user){
-            ctx.status=401;
-            ctx.body='need login'
-        }else{
-            ctx.body=user;
-            ctx.set('Content-Type','application/json')
-        }
-    })
     server.use(router.routes());
     server.use(async (ctx,next)=>{
+        ctx.req.session=next.session;
         await handle(ctx.req,ctx.res);
         ctx.respond=false
     })
