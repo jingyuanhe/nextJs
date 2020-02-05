@@ -26,7 +26,7 @@ app.prepare().then(()=>{
     });
     server.use(router.routes());
     server.use(async (ctx,next)=>{
-        ctx.req.session=next.session;
+        ctx.req.session=ctx.session;
         await handle(ctx.req,ctx.res);
         ctx.respond=false
     })
