@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import withRedux from '../lib/with-redux.js'
 import PageLoading from '../components/PageLoading'
 import Router from 'next/router'
+import axios from 'axios'
 class MyApp extends App{
     constructor(props){
         super(props);
@@ -12,12 +13,12 @@ class MyApp extends App{
             loading:false
         }
     }
-    startLoading(){
+    startLoading=()=>{
         this.setState({
             loading:true
         })
     }
-    endLoading(){
+    endLoading=()=>{
         this.setState({
             loading:false
         })
@@ -25,7 +26,9 @@ class MyApp extends App{
     componentDidMount() {
         Router.events.on('routeChangeStart',this.startLoading);
         Router.events.on('routeChangeComplete',this.endLoading);
-        Router.events.on('routeChangeError',this.endLoading)
+        Router.events.on('routeChangeError',this.endLoading);
+        axios.get('/github/search/repositories?q=react')
+        .then(resp=>console.log(resp))
     }
   
     componentWillUnmount() {

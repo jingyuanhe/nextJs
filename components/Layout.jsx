@@ -1,5 +1,5 @@
 import { Button, Layout, Icon, Input, Avatar,Menu, Dropdown,Tooltip } from 'antd'
-import { useState, useCallback } from 'react'
+import { useState, useCallback} from 'react'
 const { Header, Content, Footer } = Layout;
 import Container from './Container'
 import getConfig from 'next/config'
@@ -7,12 +7,17 @@ const { publicRuntimeConfig } = getConfig();
 import {connect} from 'react-redux'
 import {logout} from '../store/store'
 import {withRouter} from 'next/router'
+import Link from 'next/link'
+import Router from 'next/router'
 function MyLayout ({ children,user,logout,router }){
-    const [search, setSearch] = useState('');
+    const urlQuery=router.query&&router.query.query;
+    const [search, setSearch] = useState(urlQuery||'');
     const handleSearchChange = useCallback(event => {
         setSearch(event.target.value)
-    }, [])
-    const handleOnSearch = useCallback(() => { }, [])
+    }, []);
+    const handleOnSearch = useCallback(() => {
+        router.push(`/search?query=${search}`)
+    }, [search])
     const handleLogout=useCallback(()=>{
         logout();
     },[])
@@ -40,10 +45,12 @@ function MyLayout ({ children,user,logout,router }){
                 <Container renderer={<div className="header-inner" />}>
                     <div className='header-left'>
                         <div className="logo">
-                            <Icon type="github" style={githubIconStyle} />
+                            <Link href='/'>
+                                <a><Icon type="github" style={githubIconStyle} /></a>
+                            </Link>
                         </div>
                         <div>
-                            <Input.Search placeholder="搜索仓库" onChange={handleSearchChange} onSearch={handleOnSearch} />
+                            <Input.Search placeholder="搜索仓库" onChange={handleSearchChange} onSearch={handleOnSearch} value={search}/>
                         </div>
                     </div>
                     <div className="header-right">
@@ -100,11 +107,14 @@ function MyLayout ({ children,user,logout,router }){
                     height:100%
                 }
                 .ant-layout{
-                    height:100%
+                    min-height:100%
                 }
                 .ant-layout-header{
                     padding-left:0;
                     padding-right:0
+                }
+                .ant-layout-content{
+                    background:#fff
                 }
                 `}
             </style>
