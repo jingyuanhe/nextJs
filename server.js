@@ -10,10 +10,12 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler();
 const redis=new Redis();
+const koaBody=require('koa-body');
 app.prepare().then(()=>{
     const server=new Koa();
     const router=new Router();
     server.keys=['Jocky develop Github app'];
+    server.use(koaBody())
     const SESSION_CONFIG={
         key:'jid',
         store:new RedisSessionStore(redis)
