@@ -24,13 +24,15 @@ function Index({ repos, starred, user,router }) {
     useEffect(()=>{
         if(!isServer){
             if(repos){
-                cache.set('repos',repos)
+                cache.set('repos',repos);
+                setArrayCache(repos);
             }
             if(starred){
-                cache.set('starred',starred)
+                cache.set('starred',starred);
+                setArrayCache(starred);
             }
-            setArrayCache(repos);
-            setArrayCache(starred);
+           
+            
         }
        
     },[repos,starred])
