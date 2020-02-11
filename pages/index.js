@@ -10,6 +10,7 @@ const { TabPane } = Tabs;
 import { withRouter } from 'next/router'
 import Router from 'next/router'
 import LRU from 'lru-cache'
+import {setArrayCache} from '../lib/repo-basic-cache'
 const cache =new LRU({
     // 缓存有效期
     maxAge:1000*60*10
@@ -28,6 +29,8 @@ function Index({ repos, starred, user,router }) {
             if(starred){
                 cache.set('starred',starred)
             }
+            setArrayCache(repos);
+            setArrayCache(starred);
         }
        
     },[repos,starred])

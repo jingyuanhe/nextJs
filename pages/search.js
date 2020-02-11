@@ -1,8 +1,9 @@
 import { withRouter } from 'next/router'
 const api = require('../lib/api');
-import {isValidElement} from 'react'
+import {isValidElement,useEffect} from 'react'
 import { List, Row, Col,Pagination } from 'antd'
 import Link from 'next/link'
+import {setArrayCache} from '../lib/repo-basic-cache'
 import Router from 'next/router'
 import Repo from '../components/Repo'
 const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust'];
@@ -38,6 +39,7 @@ const doSearch=config=>{
     })
 }
 const per_page=20;
+const isServer=typeof window==='undefined';
 const FilterLink=({name,query,lang,sort,order,page})=>{
     let queryString = `?query=${query}`;
     if (lang) queryString += `&lang=${lang}`
@@ -54,6 +56,10 @@ const selectedItemStyle={
 function Search({ repos, router }) {
     const {...querys}=router.query;
     const {sort,order,lang,query,page}=router.query;
+    useEffect(()=>{
+        if(!isServer)
+        setArrayCache(repos.items);
+    },[])
     return (
         <div className="root">
             <Row gutter={20}>
