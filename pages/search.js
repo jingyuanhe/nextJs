@@ -6,6 +6,7 @@ import Link from 'next/link'
 import {setArrayCache} from '../lib/repo-basic-cache'
 import Router from 'next/router'
 import Repo from '../components/Repo'
+
 const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust'];
 const SORT_TYPES = [
     {

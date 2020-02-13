@@ -3,6 +3,7 @@ const api = require('../../lib/api')
 import { Avatar,Button } from 'antd'
 import {useState,EffectCallback, useCallback} from 'react'
 import dynamic from 'next/dynamic'
+import SearchUser from '../../components/SearchUser'
 import {getLastUpdataed} from '../../lib/utils'
 const MdRenderer=dynamic(()=>import('../../components/MarkDownRender'))
 function IssueDetail({issue}){
@@ -29,6 +30,7 @@ function IssueItem({ issue }) {
     const toggleShowDetail=useCallback(()=>{setShowDetail(detail=>!detail)},[])
     return (
         <div>
+            
             <div className="issue">
                 <Button type="primary" size="small" style={{position:'absolute',right:20,top:20}} onClick={toggleShowDetail}>
                     {showDetail?'隐藏':'显示'}
@@ -83,7 +85,12 @@ function IssueItem({ issue }) {
     )
 }
 function Issues({ issues }) {
+    const [creator,setCreator]=useState();
+    const handleCreatorChange=useCallback(value=>{
+        setCreator(value)
+    },[])
     return <div className="root">
+        <SearchUser onSearch={handleCreatorChange} value={creator}></SearchUser>
         <div className="issues">
             {issues.map(issue=><IssueItem issue={issue} key={issue.id}></IssueItem>)}
         </div>
